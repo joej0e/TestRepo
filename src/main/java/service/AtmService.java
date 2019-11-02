@@ -1,16 +1,18 @@
 package service;
 
-import java.util.Map;
+import java.util.HashMap;
 
 public interface AtmService {
 
-    void fundAccount(Long accountId, String faceValue, Long atmId);
+    String FIVE100 = "500";
+    String TWO100 = "200";
+    String ONE100 = "100";
 
-    void withdraw(Long accountId, Long amount, Long atmId);
+    Long LIMIT = 40L;
 
-    void addBills(Long atmId, String inputFaceValue);
+    void putBillsToAtm(String inputFaceValue, Long quantity);
 
-    Map<String, Long> getAvailableBills(Long atmId);
+    void pickBillsFromAtm(String inputFaceValue, Long quantity);
 
-    void takeAwayBills(Long atmId, String inputFaceValue);
+    HashMap<String, Long> getFaceValuesQuantities();
 }

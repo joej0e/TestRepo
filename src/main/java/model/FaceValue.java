@@ -4,9 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import java.util.List;
 
 @Entity
 @Table(name = "face_values")
@@ -16,7 +14,8 @@ public class FaceValue {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String faceValue;
+    @Column(name = "name")
+    private String name;
 
     private Long quantity;
 
@@ -30,12 +29,12 @@ public class FaceValue {
         this.id = id;
     }
 
-    public String getFaceValue() {
-        return faceValue;
+    public String getName() {
+        return name;
     }
 
-    public void setFaceValue(String faceValue) {
-        this.faceValue = faceValue;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getQuantity() {
