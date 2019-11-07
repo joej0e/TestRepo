@@ -1,16 +1,18 @@
 package service.impl;
 
-import model.FaceValue;
+import org.springframework.transaction.annotation.Transactional;
+import persistence.model.FaceValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.AccountRepository;
-import repository.FaceValueRepository;
+import persistence.repository.AccountRepository;
+import persistence.repository.FaceValueRepository;
 import service.AtmService;
 
 import java.util.HashMap;
 import java.util.List;
 
 @Service
+@Transactional
 public class AtmServiceImpl implements AtmService {
 
     @Autowired

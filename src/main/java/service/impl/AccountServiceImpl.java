@@ -1,12 +1,16 @@
 package service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import repository.AccountRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import persistence.repository.AccountRepository;
 import service.AccountService;
 import service.AtmService;
 
 import java.util.HashMap;
 
+@Service
+@Transactional
 public class AccountServiceImpl implements AccountService {
 
     @Autowired

@@ -1,6 +1,6 @@
-package repository;
+package persistence.repository;
 
-import model.Account;
+import persistence.model.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AccountRepository extends JpaRepository <Account, Long>{
