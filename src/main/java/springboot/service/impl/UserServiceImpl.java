@@ -16,7 +16,7 @@ import java.util.Arrays;
 @Transactional
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserRepository repository;
+    private UserRepository userRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -26,21 +26,21 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public User registerNewUserAccount(UserDto accountDto)
+    public User registerNewUserAccount(UserDto userDto)
             throws RuntimeException {
 
-        if (loginExists(accountDto.getLogin())) {
+        if (loginExists(userDto.getLogin())) {
             throw new RuntimeException("There is an account with that email address:  + accountDto.getEmail())");
         }
         User user = new User();
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setLogin(accountDto.getLogin());
+        user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+        user.setLogin(userDto.getLogin());
         user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
-        return repository.save(user);
+        return userRepository.save(user);
     }
 
     private boolean loginExists(String login) {
-        User user = repository.findByLogin(login);
+        User user = userRepository.findByLogin(login);
         return user != null;
     }
 }

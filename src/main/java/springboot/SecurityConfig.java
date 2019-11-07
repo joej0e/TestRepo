@@ -35,10 +35,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .usernameParameter("login")
+                .passwordParameter("password")
                 .permitAll()
                 .and()
                 .logout()
                 .permitAll();
+
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
     }
 
     @Bean
