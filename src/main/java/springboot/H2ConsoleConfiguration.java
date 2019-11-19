@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.h2.server.web.WebServlet;
 
 @Configuration
-public class ConsoleConfiguration {
+public class H2ConsoleConfiguration {
     @Bean
     ServletRegistrationBean h2servletRegistration() {
         ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());

@@ -1,18 +1,13 @@
 package springboot.web.dto;
 
-import springboot.validator.PasswordMatches;
-import springboot.validator.ValidPassword;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@PasswordMatches
 public class UserDto {
     @NotNull
     @NotEmpty
     private String login;
 
-    @ValidPassword
     private String password;
 
     @NotNull

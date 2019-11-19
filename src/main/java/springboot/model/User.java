@@ -1,5 +1,7 @@
 package springboot.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,6 +26,7 @@ public class User {
     private Long id;
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     private Set<Account> accounts = new HashSet<>();
 
     @Column(name="login")
@@ -72,6 +75,7 @@ public class User {
         this.id = id;
     }
 
+    @JsonManagedReference
     public Set<Account> getAccounts() {
         return accounts;
     }

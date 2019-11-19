@@ -10,40 +10,51 @@ import springboot.service.AtmService;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
 public class AtmServiceImpl implements AtmService {
 
     @Autowired
-    private AccountRepository accountRepository;
-
-    @Autowired
     private FaceValueRepository faceValueRepository;
 
     @Override
-    public void putBillsToAtm(String inputFaceValue, Long quantity) {
-        Long currentQuantity = faceValueRepository
-                .findByName(inputFaceValue)
-                .getQuantity();
-        faceValueRepository.findByName(inputFaceValue).setQuantity(currentQuantity + quantity);
+    public FaceValue putBillToAtm(String inputFaceValue) {
+        if(checkFaceValue(inputFaceValue)) {
+            FaceValue faceValueFromBd = faceValueRepository
+                    .findByName(inputFaceValue);
+            Long currentQuantity = faceValueFromBd.getQuantity();
+            faceValueFromBd.setQuantity(++currentQuantity);
+            return faceValueRepository.save(faceValueFromBd);
+        } else {
+            throw new IllegalArgumentException("Wrong face value!!!");
+        }
     }
 
     @Override
-    public void pickBillsFromAtm(String inputFaceValue, Long quantity) {
-        Long currentQuantity = faceValueRepository
-                .findByName(inputFaceValue)
-                .getQuantity();
-        faceValueRepository.findByName(inputFaceValue).setQuantity(currentQuantity - quantity);
+    public FaceValue pickBillsFromAtm(String faceValue, Long quantity) {
+            FaceValue faceValueFromBd = faceValueRepository
+                    .findByName(faceValue);
+            Long currentQuantity = faceValueFromBd.getQuantity();
+            faceValueFromBd.setQuantity(currentQuantity - quantity);
+            return faceValueRepository.save(faceValueFromBd);
+
     }
 
     @Override
-    public HashMap<String, Long> getFaceValuesQuantities() {
+    public Map<String, Long> getFaceValuesQuantities() {
         List<FaceValue> faceValues = faceValueRepository.findAll();
-        HashMap<String, Long> mapQuantities = new HashMap<>();
+        Map<String, Long> mapQuantities = new HashMap<>();
         for (FaceValue faceValue : faceValues) {
-            mapQuantities.put(faceValue.getName(), faceValue.getQuantity() * Integer.parseInt(faceValue.getName()));
+            mapQuantities.put(faceValue.getName(), faceValue.getQuantity());
         }
         return mapQuantities;
+    }
+
+    private static boolean checkFaceValue(String faceValue) {
+        return faceValue.equals(AtmService.FIVE100) ||
+                faceValue.equals(AtmService.TWO100) ||
+                faceValue.equals(AtmService.ONE100);
     }
 }

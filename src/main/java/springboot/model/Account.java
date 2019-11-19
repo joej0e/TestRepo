@@ -1,5 +1,8 @@
 package springboot.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -35,6 +38,7 @@ public class Account {
         this.id = id;
     }
 
+    @JsonBackReference
     public User getUser() {
         return user;
     }

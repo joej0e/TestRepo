@@ -1,6 +1,9 @@
 package springboot.service;
 
+import springboot.model.FaceValue;
+
 import java.util.HashMap;
+import java.util.Map;
 
 public interface AtmService {
 
@@ -8,11 +11,13 @@ public interface AtmService {
     String TWO100 = "200";
     String ONE100 = "100";
 
-    Long LIMIT = 40L;
+    Long FIVE100LIMIT = 500*40L;
+    Long TWO100LIMIT = 200*40L;
+    Long ONE100LIMIT = 100*40L;
 
-    void putBillsToAtm(String inputFaceValue, Long quantity);
+    FaceValue putBillToAtm(String inputFaceValue);
 
-    void pickBillsFromAtm(String inputFaceValue, Long quantity);
+    FaceValue pickBillsFromAtm(String inputFaceValue, Long quantity);
 
-    HashMap<String, Long> getFaceValuesQuantities();
+    Map<String, Long> getFaceValuesQuantities();
 }

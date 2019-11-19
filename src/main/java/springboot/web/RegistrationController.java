@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import springboot.model.User;
 import springboot.service.UserService;
+import springboot.validator.UserValidator;
 import springboot.web.dto.UserDto;
 
 import javax.validation.Valid;
@@ -17,6 +18,8 @@ import javax.validation.Valid;
 public class RegistrationController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserValidator userValidator;
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -26,8 +29,8 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute("userForm") @Valid UserDto userForm, BindingResult bindingResult) {
-
+    public String registration(@ModelAttribute("userForm") UserDto userForm, BindingResult bindingResult) {
+        userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
             return "registration";
         }

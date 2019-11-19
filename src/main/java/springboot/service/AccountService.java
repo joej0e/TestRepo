@@ -1,8 +1,12 @@
 package springboot.service;
 
+import springboot.model.Account;
+
 public interface AccountService {
 
-    void fundAccount(Long accountId, String faceValue);
+    Account fundAccount(Long accountId, String faceValue);
 
-    void withdraw(Long accountId, Long amount);
+    Account withdraw(Long accountId, Long amount);
+
+    Account create(Account account);
 }
